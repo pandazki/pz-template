@@ -5,7 +5,11 @@
   "bin": {
     "tplgen": "./bin/index.js"
   },
-  "author": "Pandazki",
+  "author": {
+    "name": "Pandazki",
+    "email": "onlrrr@gmail.com",
+    "url": "github.com/pandazki/pz-template"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/pandazki/pz-template"
@@ -21,5 +25,11 @@
     "klaw-sync": "^6.0.0",
     "ora": "^5.0.0",
     "simple-git": "^2.20.1"
-  }
+  },
+  "keywords": [
+    "handlebars",
+    "template",
+    "code-generator"
+  ],
+  "homepage": "https://github.com/pandazki/pz-template"
 }
