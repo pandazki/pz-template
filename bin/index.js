@@ -29,7 +29,7 @@ program
   .alias('g')
   .description('Generation via template')
   .requiredOption('-l, --location <template location>', 'Template location')
-  .option('-o, --output <output location>', 'Output path', './output')
+  .option('-o, --output <output location>', 'Output path. Warning: If specified as current directory, the checks for directory presence will be ignored and an incremental override policy will be applied!', './output')
   .action(async (options) => {
 
     // Step 1: load template
@@ -47,20 +47,37 @@ program
       return
     }
 
-    if (fs.existsSync(outputAbs)) {
+    const outputAbs = path.resolve(process.cwd(), options.output)
+
+    if (outputAbs !== process.cwd() && fs.existsSync(outputAbs)) {
       spinner.fail(error(`1/4 Output folder ${outputAbs} existed.`))
       return
     }
 
     spinner.succeed(success('1/4 Pre-inspection completed'))
 
+    // Step 1.1: If multiple templates exist, select one.
+
+    if (loader.getTemplateNames().length > 1) {
+      spinner.info('Select Template')
+      const choise = await inquirer.prompt([{
+        name: "templateName",
+        type: "list",
+        choices: loader.getTemplateNames(),
+        message: "Template Name",
+        default: loader.getTemplateNames()[0]
+      }])
+      loader.select(choise.templateName)
+    }
+
+    const prompts = loader.selectedConfig.prompts
+
     // Step 2: collect data
     spinner.info('Please complete the template data below')
-    const ans = await inquirer.prompt(loader.config.prompts)
+    const ans = await inquirer.prompt(prompts)
     spinner.succeed(success('2/4 Data collection completed'))
 
     // Step 3: copy teplate to target folder
-    const outputAbs = path.resolve(process.cwd(), options.output)
     spinner.start(warning('3/4 Copy the template files to the target folder...'))
 
     try {
@@ -116,7 +133,8 @@ program
 
     // Step 2: collect data
     spinner.info('Please complete the template data below')
-    const ans = await inquirer.prompt(loader.config.prompts)
+
+    const ans = await inquirer.prompt(loader.selectedConfig.prompts)
     spinner.succeed(success('2/4 Data collection completed'))
 
     // Step 3: copy teplate to target folder
