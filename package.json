@@ -1,0 +1,25 @@
+{
+  "name": "pz-template",
+  "version": "1.0.0",
+  "main": "index.js",
+  "bin": {
+    "tplgen": "./bin/index.js"
+  },
+  "author": "Pandazki",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pandazki/pz-template"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "commander": "^6.1.0",
+    "fs-extra": "^9.0.1",
+    "handlebars": "^4.7.6",
+    "handlebars-helpers": "^0.10.0",
+    "inquirer": "^7.3.3",
+    "klaw-sync": "^6.0.0",
+    "ora": "^5.0.0",
+    "simple-git": "^2.20.1"
+  }
+}
