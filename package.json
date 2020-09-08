@@ -1,6 +1,6 @@
 {
   "name": "pz-template",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "index.js",
   "bin": {
     "tplgen": "./bin/index.js"
