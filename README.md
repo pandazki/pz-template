@@ -21,7 +21,9 @@ tplgen c
 # generate code/text by template
 tplgen g -l [your template git repo/local template folder] -o output
 
-# help
+# upgrade to new template version
+tplgen u -t [.tplver_xxxx] --hash [specify git rev hash]
 
+# help
 tplgen -h
 ```
